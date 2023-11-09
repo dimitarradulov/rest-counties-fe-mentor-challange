@@ -1,0 +1,22 @@
+<article class="shadow-md rounded overflow-hidden">
+  <img
+    class="inline-block w-full h-36"
+    [src]="data.flag.imageSrc"
+    [alt]="data.flag.alt"
+  />
+  <div class="px-4 pt-4 pb-8">
+    <h3 class="font-extrabold mb-4">{{ data.name }}</h3>
+    <p class="text-sm">
+      <span class="font-semibold mr-1">Population:</span>
+      <span>{{ data.population | number : "1.0" : "en-US" }}</span>
+    </p>
+    <p class="text-sm">
+      <span class="font-semibold mr-1">Region:</span>
+      <span>{{ data.region }}</span>
+    </p>
+    <p class="text-sm">
+      <span class="font-semibold mr-1">Capital:</span>
+      <span>{{ data.capital }}</span>
+    </p>
+  </div>
+</article>
