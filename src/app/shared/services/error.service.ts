@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { Subject } from 'rxjs';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class ErrorService {
-  private errorMessage = new BehaviorSubject<string>('');
-  errorMessage$ = this.errorMessage.asObservable();
+  private errorSubject = new Subject<string>();
+  error$ = this.errorSubject.asObservable();
 
-  showErrorMessage(message: string) {
-    this.errorMessage.next(message);
+  setError(errorMessage: string) {
+    this.errorSubject.next(errorMessage);
   }
 }

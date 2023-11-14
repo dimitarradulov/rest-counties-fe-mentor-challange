@@ -1,7 +1,10 @@
-<article class="shadow-md rounded overflow-hidden">
+<article
+  class="shadow-md rounded overflow-hidden cursor-pointer dark:bg-dark-mode-blue"
+  (click)="countryClicked.next(data)"
+>
   <img
     class="inline-block w-full h-36"
-    [src]="data.flag.imageSrc"
+    [src]="data.flag.png"
     [alt]="data.flag.alt"
   />
   <div class="px-4 pt-4 pb-8">

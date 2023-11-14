@@ -1,22 +1,23 @@
-<section *ngIf="!loading() && !error()">
-  <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-16 mb-16">
-    <app-country-card
-      *ngFor="
-        let country of countries()
-          | paginate : { itemsPerPage: 12, currentPage: page() };
-        trackBy: countriesTrackBy
-      "
-      [data]="country"
-    />
-  </div>
+@if (countriesService.loading()) {
+<div class="flex justify-center">
+  <app-loading-spinner />
+</div>
+} @else if (countriesService.error()) {
+<app-error [message]="countriesService.error()" />
+} @else {
+<section>
+  <app-country-search (queryChange)="searchService.setQuery($event)" />
 
+  <app-country-list
+    [countries]="countriesService.countries()"
+    [paginationPage]="page()"
+    (countryClicked)="router.navigate(['country', $event.cca2.toLowerCase()])"
+  />
+
+  @if (countriesService.countries().length) {
   <div class="flex justify-center">
     <pagination-controls (pageChange)="page.set($event)" />
   </div>
+  }
 </section>
-
-<app-error *ngIf="error() && !loading()" [message]="error()!" />
-
-<div *ngIf="loading() && !error()" class="flex justify-center">
-  <app-loading-spinner />
-</div>
+}

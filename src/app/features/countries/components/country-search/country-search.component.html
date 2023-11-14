@@ -1,0 +1,32 @@
+<form #searchForm="ngForm">
+  <div class="flex justify-between mb-10 flex-wrap">
+    <div class="relative basis-[35rem] flex-grow lg:flex-grow-0 mb-4 lg:m-0">
+      <ng-icon
+        name="heroMagnifyingGlass"
+        class="absolute top-1/2 left-4 -translate-y-2/4"
+      ></ng-icon>
+      <input
+        ngModel
+        name="query"
+        type="text"
+        placeholder="Search for a country..."
+        class="shadow-md py-4 pr-8 pl-12 rounded placeholder:text-sm w-full dark:bg-dark-mode-blue placeholder:dark:text-light-mode-off-white"
+        (input)="queryChange.next(searchForm.form.getRawValue())"
+      />
+    </div>
+
+    <select
+      [ngModel]="Region.ALL"
+      name="region"
+      class="text-sm py-4 pl-4 pr-8 border-r-[1rem] border-solid border-transparent shadow-md rounded flex-grow lg:flex-grow-0 dark:bg-dark-mode-blue"
+      (change)="queryChange.next(searchForm.form.getRawValue())"
+    >
+      <option [value]="Region.ALL">Filter by Region</option>
+      <option [value]="Region.AFRICA">Africa</option>
+      <option [value]="Region.AMERICA">America</option>
+      <option [value]="Region.ASIA">Asia</option>
+      <option [value]="Region.EUROPE">Europe</option>
+      <option [value]="Region.OCEANIA">Oceania</option>
+    </select>
+  </div>
+</form>

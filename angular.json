@@ -65,10 +65,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "rest-counties-fe-mentor-challange:build:production"
+              "buildTarget": "rest-counties-fe-mentor-challange:build:production"
             },
             "development": {
-              "browserTarget": "rest-counties-fe-mentor-challange:build:development"
+              "buildTarget": "rest-counties-fe-mentor-challange:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -76,7 +76,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "rest-counties-fe-mentor-challange:build"
+            "buildTarget": "rest-counties-fe-mentor-challange:build"
           }
         },
         "test": {

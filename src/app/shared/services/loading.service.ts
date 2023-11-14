@@ -1,20 +1,27 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, of } from 'rxjs';
-import { tap, switchMap, finalize } from 'rxjs/operators';
+import { Subject, Observable, of, tap, switchMap, finalize } from 'rxjs';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({
+  providedIn: 'root',
+})
 export class LoadingService {
-  private isLoading = new BehaviorSubject<boolean>(false);
-  isLoading$ = this.isLoading.asObservable();
+  private loadingSubject = new Subject<boolean>();
+  loading$ = this.loadingSubject.asObservable();
 
-  trackLoadingUntilObservableCompletes<T>(
-    observable$: Observable<T>
-  ): Observable<T> {
+  trackLoadingOnObservable<T>(obs$: Observable<T>): Observable<T> {
     return of(null).pipe(
-      tap(() => this.isLoading.next(true)),
-      switchMap(() => observable$),
-      tap(() => this.isLoading.next(false)),
-      finalize(() => this.isLoading.next(false))
+      tap(() => this.startLoading()),
+      switchMap(() => obs$),
+      finalize(() => this.stopLoading()),
+      tap(() => this.stopLoading())
     );
+  }
+
+  startLoading() {
+    this.loadingSubject.next(true);
+  }
+
+  stopLoading() {
+    this.loadingSubject.next(false);
   }
 }
